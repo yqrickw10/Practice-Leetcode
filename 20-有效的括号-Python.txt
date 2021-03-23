@@ -1,0 +1,20 @@
+#https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/easy/20.valid-parentheses
+
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack=[]
+        map={"(":")","[":"]","{":"}"}
+
+        for x in s:
+            if x in map:
+                stack.append(map[x])
+            else:
+                if len(stack)!=0:
+                    top_element = stack.pop()
+                    if x!=top_element:
+                        return False
+                else:
+                    return False
+        
+        return len(stack) == 0

@@ -1,0 +1,10 @@
+//C++ version
+//string: 
+//堆栈
+//降低空间复杂度至O(1)
+
+class Solution {
+public:
+    bool isValid(string s) {
+    }
+};
