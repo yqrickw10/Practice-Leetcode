@@ -1,0 +1,24 @@
+#核心思想：延申，具体来说，如果在一个不是回文字符串的字符串两端添加任何字符，或者在回文串左右分别添加不同字符，得到的一定不是回文串
+#base case是一个或者两个字符
+#建立动态规划模型
+#我们用dp[i][j]表示s中从i到j(包括i和j)是否可以形成回文，状态转移方程只是将上面的描述转化为代码
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        if n==0:
+            return ""
+        res = s[0]
+        def extend(i,j,s):
+            while(i >=0 and j<len(s) and s[i]==s[j]):
+                i-=1
+                j+=1
+            return s[i+1:j]
+        
+        for i in range(n-1):
+            e1 = extend(i,i,s)
+            e2 = extend(i,i+1,s)
+            if(max(len(e1),len(e2))) > len(res):
+                res = e1 if len(e1) > len(e2) else e2
+            
+        return res

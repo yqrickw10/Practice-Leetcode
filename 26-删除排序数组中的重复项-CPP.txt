@@ -1,0 +1,19 @@
+//C++ version
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if(nums.empty())  return 0;
+
+        auto s=nums.begin();
+        for(auto f=nums.begin();f!=nums.end();f++)
+        {
+            if(*f != *s )
+            {
+                s++;
+                *s = *f;
+            }
+        }
+        return s-nums.begin()+1;
+    }
+};

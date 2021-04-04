@@ -1,0 +1,30 @@
+#用回溯法进行求解，回溯是一种通过穷举所有可能情况来找到所有解的算法，如果一个候选解最后被发现并不是可行解
+#回溯法会舍弃它，并在前面的一些步骤做出一些修改，并重新尝试找到可行解，究其本质，就是枚举
+
+#如果没有更多数字需要被输入，说明当前的组合已经产生
+#如果还有数字需要被输入，则遍历下一个数字所对应的所有映射字母，将当前的字母添加到组合最后，也就是str+tmp[r]
+#回溯法，请参考https://github.com/azl397985856/leetcode/blob/master/thinkings/backtrack.md
+
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        self.d = [" "," ","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"]
+        self.res=[]
+        self.dfs(digits,0,"")
+        return self.res
+    
+    def dfs(self,digits,index,s):
+        # 递归的终止条件，用index记录每次遍历到字符串的位置
+        if index == len(digits):
+            self.res.append(s)
+            return
+        # 获取当前数字
+        c = digits[index]
+
+        # 获取数字对应的字母
+        letters = self.d[int(c)]
+
+        #遍历字符串
+        for l in letters:
+            self.dfs(digits,index+1,s+l)

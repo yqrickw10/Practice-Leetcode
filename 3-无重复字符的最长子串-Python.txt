@@ -1,0 +1,23 @@
+#滑动窗口题目
+#用一个hashmap来建立字符和其位置之间的映射。同时维护一个滑动窗口，窗口内的都是没有重复的字符，去尽可能的扩大窗口大小，窗口不停的向右滑动
+
+
+#关键点：mapper记录出现过并且没有被删除的字符
+#滑动窗口记录当前index开始的最大的不重复的字符序列
+
+
+from collections import defaultdict
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        l = 0 #left
+        ans = 0
+        counter = defaultdict(lambda: 0)
+        for r in range(len(s)):
+            while counter.get(s[r],0)!=0:
+                counter[s[l]] = counter.get(s[l],0) - 1
+                l+=1
+            counter[s[r]] += 1
+            ans = max(ans,r-l+1)
+
+        return ans

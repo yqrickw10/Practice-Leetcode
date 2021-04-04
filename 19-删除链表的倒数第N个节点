@@ -1,0 +1,28 @@
+#可以用双指针算法，不妨设指针A和指针B，指针A先移动n次，指针B再开始移动。当A到达null时，指针B的位置正好是倒数第n
+#这个时候将B的指针指向下下个指针即可完成删除工作
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
+        dummyhead = ListNode(0)
+        dummyhead.next = head
+
+        ptr_Fast = dummyhead
+        ptr_Slow = dummyhead
+
+        #ptr_Fast move n+1 times
+        for i in range(n+1):
+            ptr_Fast = ptr_Fast.next
+        
+        while ptr_Fast is not None:
+            ptr_Fast = ptr_Fast.next
+            ptr_Slow = ptr_Slow.next
+        
+        ptr_Slow.next = ptr_Slow.next.next
+
+        return dummyhead.next
