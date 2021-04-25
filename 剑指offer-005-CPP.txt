@@ -1,0 +1,41 @@
+//C++中字符可修改，因此可以在不新建字符的情况下实现原地修改
+//时间复杂度O(N)，空间复杂度O(1)
+
+class Solution {
+public:
+    string replaceSpace(string s) {
+        int count = 0, len = s.size();
+        for(char c:s)
+        {
+            if(c==' ') count++;
+        }
+        //修改数组长度为len+count*2
+        s.resize(len+count*2);
+        for(int i=len-1,j=s.size()-1;i<j;i--,j--)
+        {
+            if(s[i]!=' ') s[j]=s[i];
+            else{
+                s[j-2]='%';
+                s[j-1]='2';
+                s[j]='0';
+                j-=2;
+            }
+        }
+        return s;
+    }
+};
+
+
+//空间复杂度为O(N)的代码
+class Solution {
+public:
+    string replaceSpace(string s) {
+        string array;
+
+        for(auto &c: s){
+            if(c==' ') array+="%20";//也可以用push_back
+            else array+=c;
+        }
+        return array;
+    }
+};

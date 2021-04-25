@@ -1,0 +1,66 @@
+
+//递归解决，回溯法
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void method(vector<int> &res, ListNode *head)
+    {
+        if(head==NULL) return;
+        method(res,head->next);
+        res.push_back(head->val);
+    }
+    vector<int> reversePrint(ListNode* head) {
+        vector<int> res;
+        method(res,head);
+        return res;
+    }
+};
+
+
+
+//辅助栈
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        stack<int> s;
+        vector<int> res;
+        ListNode* p = head;
+        while(p){
+            s.push(p->val);
+            p=p->next;
+        }
+        while(!s.empty()){
+            res.push_back(s.top());
+            s.pop();
+        }
+        return res;
+    }
+};
+
+//利用c++ insert 特性
+class Solution {
+public:
+    vector<int> reversePrint(ListNode* head) {
+        vector<int> res;
+        while(head){
+            res.insert(res.begin(),head->val);
+            head=head->next;
+        }
+        return res;
+    }
+};
