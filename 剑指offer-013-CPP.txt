@@ -1,0 +1,43 @@
+//机器人的运动范围
+//DFS，递归
+class Solution {
+public:
+    int movingCount(int m, int n, int k) {
+        this->m = m; this->n = n; this->k = k;
+        vector<vector<bool>> visted(m,vector<bool>(n,0));
+        return dfs(0,0,0,0,visted);
+    }
+private:
+    int m,n,k;
+    int dfs(int i, int j, int si, int sj, vector<vector<bool>> &visted){
+        if(i>=m||j>=n||i<0||j<0||si+sj>k||visted[i][j]) return false;
+        visted[i][j] = true;
+
+        return 1+dfs(i+1,j,(i+1)%10!=0?si+1:si-8,sj,visted)+
+                 dfs(i,j+1,si,(j+1)%10!=0?sj+1:sj-8,visted);
+    }
+};
+
+//BFS,队列
+class Solution {
+public:
+    int movingCount(int m, int n, int k) {
+        vector<vector<bool>> visited(m,vector<bool>(n,false));
+        int res=0;
+
+        queue<vector<int>> que;
+        que.push({0,0,0,0});
+        while(!que.empty()){
+            vector<int> x = que.front();
+            que.pop();
+            int i=x[0],j=x[1],si=x[2],sj=x[3];
+            if(i>=m||j>=n||si+sj>k||visited[i][j]) continue;
+            visited[i][j] = true;
+            res++;
+            que.push({i+1,j,(i+1)%10!=0?si+1:si-8,sj});
+            que.push({i,j+1,si,(j+1)%10!=0?sj+1:sj-8});
+        }
+        return res;
+    }
+
+};

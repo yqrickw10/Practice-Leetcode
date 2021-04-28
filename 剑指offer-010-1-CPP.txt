@@ -1,0 +1,38 @@
+//递归会超时
+class Solution {
+public:
+    int fib(int n) {
+        if(n<=1) return n;
+        return fib(n-1)+fib(n-2);
+    }
+};
+//可以用一个数组记录已经有的值
+class Solution {
+public:
+    int b[110];
+    int fib(int n) {
+        if(n<=1) return n;
+        if(!b[n]){
+            int temp = (fib(n-1)+fib(n-2))%1000000007;
+            b[n]=temp;
+        }
+        return b[n];
+    }
+};
+//利用动态规划
+class Solution {
+public:
+    int fib(int n) {
+        int a,b,sum;
+        a=0;b=1;sum=0;
+        if(n<=1) sum=n;
+        for(int i=0; i<n-1;i++)
+        {
+            sum = (a+b)%1000000007;
+            a = b;
+            b = sum;
+        }
+        return sum;
+
+    }
+};

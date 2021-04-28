@@ -1,0 +1,40 @@
+//剪绳子
+//动态规划,时间O(n^2),空间O(n)
+class Solution {
+public:
+    int cuttingRope(int n) {
+        vector<int> dp(n+1,0);
+        if (n<=1) return 0;
+        if (n==2) return 1;
+        if (n==3) return 2;
+
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 3;
+
+        for(int i=4;i<=n;i++){
+            for(int j=1;j<=i/2;j++){
+                dp[i] = max(dp[i],j*dp[i-j]);
+            }
+        }
+        return dp[n];
+    }
+};
+
+//贪心算法，时间O(n), 空间 O(1)
+
+class Solution {
+public:
+    int cuttingRope(int n) {
+        if (n<4) return n-1;
+        if (n==4) return 4;
+        int res=1;
+
+        while(n>4){
+            res*=3;
+            n-=3;
+        }
+        return res*n;
+    }
+};
